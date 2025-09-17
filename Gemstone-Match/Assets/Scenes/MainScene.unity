@@ -154,7 +154,7 @@ MonoBehaviour:
   - {fileID: -4623200395946084190, guid: 9ff58259d02a738419f0b4907d73887c, type: 3}
   - {fileID: -1493538341624905679, guid: e00bd393d6620d24987686a2ed00daa5, type: 3}
   - {fileID: -4153105606080004468, guid: d26e83f608076de4d818dde799c37bb1, type: 3}
-  gemParent: {fileID: 497316805}
+  gemParent: {fileID: 497316806}
 --- !u!4 &401627402
 Transform:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCellParent: {fileID: 1820689017}
   levelDataSo: {fileID: 11400000, guid: eac703d740a322b43b71ba1d6c87c231, type: 2}
-  gridCell: {fileID: 0}
+  gridCell: {fileID: -247662548617411975, guid: ab8312eed311b774084b718a5316aced, type: 3}
   gridStartPosition: {x: -2, y: -4}
   gridSpacing: 0.51
   gridWidth: 5

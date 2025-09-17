@@ -5,20 +5,30 @@ namespace _GameFolders.Scripts.Objects
 {
     public class GridCell : MonoBehaviour
     {
-        public Gem CurrentGem { get; private set; }
+        private Gem _currentGem;
         public int2 Index { get; private set; }
-        public void Initialize(int x, int y)
+        internal void Initialize(int x, int y)
         {
             Index = new int2(x, y);
         }
+        internal Gem GetCurrentGem()
+        {
+            return _currentGem;
+        }
         public void SetCurrentGem(Gem gem)
         {
-            CurrentGem = gem;
+            _currentGem = gem;
+            if (gem != null)
+                gem.SetCurrentCell(this);
         }
-        public void ClearCell()
+
+        public void ClearGem()
         {
-            CurrentGem.SetCurrentCell(null);
-            CurrentGem = null;
+            if (_currentGem != null)
+            {
+                _currentGem.SetCurrentCell(null);
+                _currentGem = null;
+            }
         }
     }
 }

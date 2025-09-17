@@ -12,12 +12,22 @@ namespace _GameFolders.Scripts.Objects
     public class Gem : MonoBehaviour
     {
         [SerializeField] private GemType type;
-        public GridCell CurrentCell { get; private set; }
+
+        private GridCell _currentCell;
         public GemType Type => type;
         internal void SetCurrentCell(GridCell cell)
         {
-            CurrentCell = cell;
+            _currentCell = cell;
             cell.SetCurrentGem(this);
+        }
+        internal GridCell GetCurrentCell()
+        {
+            return _currentCell;
+        }
+
+        internal void MoveTo(Transform cellTransform)
+        {
+            transform.position = cellTransform.position;
         }
     }
 }

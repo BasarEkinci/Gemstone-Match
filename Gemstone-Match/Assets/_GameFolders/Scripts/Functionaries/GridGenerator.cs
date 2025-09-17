@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using _GameFolders.Scripts.Data.ScriptableObjects;
+using _GameFolders.Scripts.Objects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace _GameFolders.Scripts.Functionaries
         [Header("References")]
         [SerializeField] private Transform gridCellParent;
         [SerializeField] private LevelDataSO levelDataSo;
-        [SerializeField] private GameObject gridPrefab;
+        [SerializeField] private GridCell gridCell;
         
         [Header("Grid Settings")]
         [SerializeField] private Vector2 gridStartPosition;
@@ -21,22 +21,26 @@ namespace _GameFolders.Scripts.Functionaries
 
         [Header("Cell Settings")]
         [SerializeField] private float cellSize = 1f;
-        
-        private List<GameObject> _grids;
+
+        public List<GridCell> GridListCells => _gridList;
+        public int GridWidth => gridWidth;
+        public int GridHeight => gridHeight;
+        private List<GridCell> _gridList;
         
         [Button("Create Grids", ButtonSizes.Large, ButtonStyle.FoldoutButton, Expanded = false)]
         private void CreateGrid()
         {
             ClearGrids();
-            _grids ??= new List<GameObject>();
+            _gridList ??= new List<GridCell>();
             for (int x = 0; x < gridWidth; x++)
             {
                 for (int y = 0; y < gridHeight; y++)
                 {
                     Vector2 spawnPos = new Vector2(gridStartPosition.x + x * gridSpacing, gridStartPosition.y + y * gridSpacing);
-                    GameObject newGrid = Instantiate(gridPrefab, spawnPos, Quaternion.identity, gridCellParent);
+                    GridCell newGrid = Instantiate(gridCell, spawnPos, Quaternion.identity, gridCellParent);
                     newGrid.transform.localScale = Vector3.one * cellSize;
-                    _grids.Add(newGrid);
+                    newGrid.Initialize(x, y);
+                    _gridList.Add(newGrid);
                     newGrid.name = $"Grid_{x}_{y}";
                 }
             }
@@ -45,10 +49,10 @@ namespace _GameFolders.Scripts.Functionaries
         [Button("Reorder Grids", ButtonSizes.Large, ButtonStyle.FoldoutButton, Expanded = false)]
         private void ReorderGrids()
         {
-            if (_grids == null)
+            if (_gridList == null)
                 return;
 
-            foreach (var cell in _grids)
+            foreach (var cell in _gridList)
             {
                 cell.transform.localScale = Vector3.one * cellSize;
             }
@@ -59,7 +63,7 @@ namespace _GameFolders.Scripts.Functionaries
                 for (int y = 0; y < gridHeight; y++)
                 {
                     
-                    _grids[i].transform.position = new Vector2(gridStartPosition.x + x * gridSpacing, gridStartPosition.y + y * gridSpacing);
+                    _gridList[i].transform.position = new Vector2(gridStartPosition.x + x * gridSpacing, gridStartPosition.y + y * gridSpacing);
                     i++;
                 }
             }
@@ -68,14 +72,12 @@ namespace _GameFolders.Scripts.Functionaries
         [Button("Clear Grids", ButtonSizes.Large, ButtonStyle.FoldoutButton, Expanded = false)]
         private void ClearGrids()
         {
-            if (_grids == null)
+            if (_gridList == null)
                 return;
             
-            foreach (var grid in _grids.ToList())
-            {
-                _grids.Remove(grid);
+            foreach (var grid in _gridList)
                 DestroyImmediate(grid);
-            }
+            _gridList.Clear();
         }
     }
 }

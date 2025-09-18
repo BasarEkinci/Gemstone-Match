@@ -1,4 +1,5 @@
-﻿using _GameFolders.Scripts.Objects;
+﻿using System;
+using _GameFolders.Scripts.Objects;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,12 +9,19 @@ namespace _GameFolders.Scripts.Functionaries
     {
         private Gem _firstGem;
         private Gem _secondGem;
+        private Camera _mainCamera;
         private bool _canSwap;
+
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
+
         private void Update()
         {
             if (Input.GetMouseButton(0))
             { 
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
                 if (hit.collider == null)
                 {

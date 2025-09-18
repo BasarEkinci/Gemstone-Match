@@ -30,5 +30,15 @@ namespace _GameFolders.Scripts.Objects
             transform.DOKill();
             return transform.DOMove(cellTransform.position, duration);
         }
+
+        internal void Match()
+        {
+            transform.DOKill();
+            transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                _currentCell.ClearGem();
+                Destroy(gameObject);
+            });
+        }
     }
 }

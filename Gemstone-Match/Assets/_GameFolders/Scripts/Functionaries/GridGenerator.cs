@@ -1,4 +1,5 @@
 using _GameFolders.Scripts.Objects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _GameFolders.Scripts.Functionaries
@@ -19,6 +20,7 @@ namespace _GameFolders.Scripts.Functionaries
         public int GridWidth => gridWidth;
         public int GridHeight => gridHeight;
 
+        [Button("Create Grid", ButtonSizes.Large, ButtonStyle.FoldoutButton, Expanded = false)]
         private void CreateGrid()
         {
             ClearGrids();

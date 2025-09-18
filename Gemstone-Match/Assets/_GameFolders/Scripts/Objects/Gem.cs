@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace _GameFolders.Scripts.Objects
 {
@@ -24,10 +25,10 @@ namespace _GameFolders.Scripts.Objects
         {
             return _currentCell;
         }
-
-        internal void MoveTo(Transform cellTransform)
+        internal Tween MoveTo(Transform cellTransform,float duration = 0.1f)
         {
-            transform.position = cellTransform.position;
+            transform.DOKill();
+            return transform.DOMove(cellTransform.position, duration);
         }
     }
 }

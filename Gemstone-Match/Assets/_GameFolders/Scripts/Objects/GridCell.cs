@@ -18,10 +18,7 @@ namespace _GameFolders.Scripts.Objects
         public void SetCurrentGem(Gem gem)
         {
             _currentGem = gem;
-            if (gem != null)
-                gem.SetCurrentCell(this);
         }
-
         public void ClearGem()
         {
             if (_currentGem != null)
